@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The version tells maven's xml parser the verison of xml being used -->
+<!-- The endoning tells maven that when you compile/build my project read and
+     read and write files like java, resources, config etc as UTF-8 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- so project here is the starting point of describing your build project
+     Maven uses this to get the starting reference on how to build your project
+     All elements (<modelVersion>, <groupId>, etc.) are interpreted in the context
+      of Maven 4.0.0. -->
+<!-- xmlns - This attribute declare the default namespaces structure for all the xml
+     elements in this xml file. This will be decalred using the link after xmlns -->
+<!-- xmlns:xsi -  It tells the parser that any attribute or element starting with
+     xsi: uses definitions from this namespace.”-->
+<!-- xsi:schemaLocation - It tells parser where to find the schema file for
+     validating the xml document -->
+
+    <!-- Basic Project Info -->
+
+    <modelVersion>4.0.0</modelVersion>
+    <!-- This tag specifies the version of the POM model you’re using.
+         And this is the only supported version -->
+
+    <groupId>com.harshDatabaseManager</groupId>
+    <!-- This is an identifier for your project group. Incase you have mutiple
+         projects then to identify your project they will first search y groupID.
+         This will help uniquely identify your projects on central maven repository
+         in case you publish it there. This will also be used to identify it in
+         your local maven repository in case if you want to use it as dependency in 
+         your another project-->
+
+    <artifactId>My-Database-Manager</artifactId>
+    <!-- This is the name of your project’s build artifact (like a library or app).
+         It's the name maven uses to build and identify the final package like .jar
+         and .war -->
+
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- This specifies the version of your project in case you have multiple version.
+         When you use this as dependecy to identify which version is to be used
+         we have this version. The -SNAPSHOT is to tell maven that this is a
+         in progress version. When you want to release this version remove this.
+         1.0.0 basically represents - <major>.<minor>.<patch>. This is a symentic 
+         used by maven for verson formatting. When maven build the jar it will build:
+          My-Database-Manager-1.0.0-SNAPSHOT.jar -->
+
+    <packaging>jar</packaging>
+    <!-- This tells maven the build output type, when the prject it built then 
+         a .jar file would be generated inside a target folder. Target folder is a
+         folder where everything which is created when maven builds a project is 
+         stored -->
+
+    <name>My-Database-Manager</name>
+    <!-- It’s a descriptive label that tools (like Maven, IDEs, and build tools)
+         can display. This will be used in log summary, in your IDE's view and
+         Maven site report when you generate them -->
+
+    <description>Custom MariaDB Dashboard Management System</description>
+    <!-- This is not required for maven to build projects but will be used by IDE's 
+         and maven site report -->
+
+    <!-- Inherit from Spring Boot's parent POM -->
+    <parent>
+    <!-- This tells maven that i want to inherit properties from that parent POM.
+         But I’m not part of that parent’s build. And the maven searches this
+         from maven central library. The Spring Boot Parent POM automatically
+         provides tested and compatible versions of dependencies
+         (like Spring Web, JDBC, etc.). Also, don’t need to manually declare plugin
+         versions like maven-compiler-plugin, spring-boot-maven-plugin, etc-->
+
+        <groupId>org.springframework.boot</groupId>
+        <!-- This is the group id to identify group where this parent POM is present
+             on central maven repository-->
+
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <!-- This is to identify the the name of the parent pom from the group above
+             on maven central repository -->
+
+        <version>3.1.0</version>
+        <!-- This tells which version of the POM you want from the parent POM -->
+
+        <relativePath/> <!-- lookup parent from repository -->
+        <!-- This tells Maven not to look for a local parent POM file on your system
+             (like in ../pom.xml). Instead, it looks up the parent POM from the
+             Maven Central Repository (where Spring Boot publishes it). -->
+
+    </parent>
+
+    <!-- Project Dependencies -->
+    <dependencies>
+        <!-- Spring Boot Web Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Thymeleaf (For rendering HTML templates) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- MariaDB JDBC Driver -->
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+    </dependencies>
+
+    <!-- Build Plugins -->
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <!-- Though maven has defaut build plugin to build a .jar file.
+                 This adds suppoprt for building an executable fat jar
+                 (with embedded Tomcat, Jetty, etc.). and run app using mvn
+                 spring-boot:run -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

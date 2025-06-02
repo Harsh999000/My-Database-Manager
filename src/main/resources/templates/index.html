@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Custom Database Manager</title>
+        <meta charset="UTF-8" />
+        <meta name="Description" content="Custom Database Manager" />
+        <meta name="Author" content="Harsh" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- CSS Framework (Bootstrap) -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+        <!-- Custom CSS (overrides) -->
+        <link rel="stylesheet" th:href="@{/css/index.css}" />
+
+    </head>
+
+    <body>
+        <!-- Login Page Header - Start -->
+        <header id="Login_Header" class="Login_Header_Class">
+            <!-- Header -->
+            <h1>Custom Database Manager</h1>
+
+            <!-- Description -->
+            <p>Manage users, databases, tables and more with an intuitive, powerful interface. Built for developers and
+                DB admins who want full control.</p>
+        </header>
+        <!-- Login Page Header - End -->
+
+        <!-- Login Section - Start -->
+        <section id="Login_Section" class="Login_Section_Class">
+            <!-- Login Form - Start -->
+            <form action="/login_api_link" method="POST">
+                <input type="text" id="username" name="username" placeholder="Username" required /><br>
+
+                <input type="password" id="password" name="password" placeholder="Password" required /><br>
+
+                <button class="login-button" type="submit">Login</button>
+            </form>
+            <!-- Login Form - End -->
+        </section>
+        <!-- Login Section - End -->
+    </body>
+
+</html>
