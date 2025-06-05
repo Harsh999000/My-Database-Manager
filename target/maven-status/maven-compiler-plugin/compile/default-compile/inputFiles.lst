@@ -2,6 +2,7 @@ D:\Projects\My-Database-Manager\src\main\java\com\myDatabaseManager\handler\Cust
 D:\Projects\My-Database-Manager\src\main\java\com\myDatabaseManager\controller\IndexController.java
 D:\Projects\My-Database-Manager\src\main\java\com\myDatabaseManager\controller\ExecutiveController.java
 D:\Projects\My-Database-Manager\src\main\java\com\myDatabaseManager\Application.java
+D:\Projects\My-Database-Manager\src\main\java\com\myDatabaseManager\config\NgrokSkipBrowserWarningFilter.java
 D:\Projects\My-Database-Manager\src\main\java\com\myDatabaseManager\utils\GenerateBCryptHash.java
 D:\Projects\My-Database-Manager\src\main\java\com\myDatabaseManager\config\WebSecurityConfig.java
 D:\Projects\My-Database-Manager\src\main\java\com\myDatabaseManager\controller\RootController.java

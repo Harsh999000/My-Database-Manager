@@ -4,7 +4,9 @@ com\myDatabaseManager\controller\SuperAdminController.class
 com\myDatabaseManager\Application.class
 com\myDatabaseManager\controller\AdminController.class
 com\myDatabaseManager\service\DatabaseService.class
+com\myDatabaseManager\utils\GenerateBCryptHash.class
 com\myDatabaseManager\controller\IndexController.class
 com\myDatabaseManager\controller\RootController.class
 com\myDatabaseManager\service\CustomUserDetailsService.class
+com\myDatabaseManager\config\NgrokSkipBrowserWarningFilter.class
 com\myDatabaseManager\handler\CustomAuthenticationSuccessHandler.class
