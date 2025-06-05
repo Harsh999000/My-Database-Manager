@@ -14,7 +14,8 @@ public class NgrokSkipBrowserWarningFilter implements Filter {
             throws IOException, ServletException {
 
         if (response instanceof HttpServletResponse) {
-            ((HttpServletResponse) response).setHeader("ngrok-skip-browser-warning", "true");
+            ((HttpServletResponse) response).setHeader("ngrok-skip-browser-warning",
+                    "true");
         }
 
         chain.doFilter(request, response);
