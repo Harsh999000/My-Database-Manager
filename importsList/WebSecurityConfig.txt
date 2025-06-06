@@ -1,0 +1,29 @@
++---------------------------------------------------------------+----------------------------------------------------------+
+| Import                                                        | Usage in Code                                             |
++---------------------------------------------------------------+----------------------------------------------------------+
+| com.myDatabaseManager.service.CustomUserDetailsService        | Field + authenticationProvider()                          |
++---------------------------------------------------------------+----------------------------------------------------------+
+| com.myDatabaseManager.handler.CustomAuthenticationSuccessHandler | Field + securityFilterChain()                             |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.context.annotation.Bean                    | All @Bean methods (securityFilterChain, passwordEncoder,  |
+|                                                                | authenticationProvider, authenticationManager)            |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.context.annotation.Configuration           | On the class                                              |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.security.authentication.AuthenticationManager | authenticationManager() return type                       |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.security.authentication.dao.DaoAuthenticationProvider | authenticationProvider() method                           |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration | Parameter in authenticationManager()                       |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.security.config.annotation.web.builders.HttpSecurity | Parameter in securityFilterChain()                        |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.security.config.annotation.web.configuration.EnableWebSecurity | On the class                                              |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder | passwordEncoder() method                                  |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.security.crypto.password.PasswordEncoder   | Return type of passwordEncoder() + used in                |
+|                                                                | authenticationProvider()                                   |
++---------------------------------------------------------------+----------------------------------------------------------+
+| org.springframework.security.web.SecurityFilterChain           | Return type of securityFilterChain()                      |
++---------------------------------------------------------------+----------------------------------------------------------+
