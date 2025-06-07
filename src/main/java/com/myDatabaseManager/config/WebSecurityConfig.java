@@ -71,12 +71,26 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 
 @Configuration
+// Tells spring to use this class to define beans and configuration logic.
+
 @EnableWebSecurity
+// It enables Spring Security’s web security features. And registers your custom
+// security configuration (what is defined in this class) instead of the
+// default.
 public class WebSecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
-    private final CustomAuthenticationSuccessHandler successHandler;
+    // CustomUserDetailsService is the implementation that loads user data from the
+    // database and with final it is initialized in the constructor and never
+    // reassigned.
 
+    private final CustomAuthenticationSuccessHandler successHandler;
+    // CustomAuthenticationSuccessHandler is an implementataion taht handles what
+    // happens after a successful login. Similarly like above it is initialized in a
+    // constructor and never reassigned
+
+    // This Constructor received the above components and assign them to fields
+    // This is to ensure that above components are available for use in below config
     public WebSecurityConfig(CustomUserDetailsService userDetailsService,
             CustomAuthenticationSuccessHandler successHandler) {
         this.userDetailsService = userDetailsService;
@@ -84,8 +98,15 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    // This declares a bean method for SecurityFilterChain
+    // SecurityFilterChain is a sequence of security filters that process incoming
+    // HTTP requests, like get /login, post /admin etc from below
+    // HttpSecurity http - Spring injects this object so you can configure security
+    // rules
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Writing in fluent API style for chained calls with better redability
         http
+                // authorizeHttpRequests: Entry point for authorization rules.
                 .authorizeHttpRequests(auth -> auth
                         // Dashboard access restrictions
                         .requestMatchers("/root/**").hasRole("ROOT")
@@ -94,33 +115,62 @@ public class WebSecurityConfig {
                         .requestMatchers("/executive/**").hasRole("EXECUTIVE")
                         // Allow everyone to see the login page
                         .requestMatchers("/", "/login", "/css/**", "/js/**").permitAll()
+                        // Asking for authention for any request other than above
                         .anyRequest().authenticated())
                 .formLogin(form -> form
+                        // Custo login pager at /login
                         .loginPage("/login")
+                        // Specifying the url end point where the login form submissions are sent for
+                        // authentication. When the form is submitted to /login, Spring Security’s
+                        // UsernamePasswordAuthenticationFilter intercepts this request and tries to
+                        // authenticate the user.
                         .loginProcessingUrl("/login")
+                        // Custom hanlder for successful login
                         .successHandler(successHandler)
+                        // Permit for everyone to see the login page
                         .permitAll())
+                // Allow everyone to logout (no restrictions).
                 .logout(logout -> logout.permitAll())
-                .csrf(csrf -> csrf.disable()); // Disable CSRF for testing (not recommended for prod)
+                // Disable CSRF for testing (not recommended for prod)
+                .csrf(csrf -> csrf.disable());
 
+        // Build and return the configured SecurityFilterChain object.
         return http.build();
     }
 
+    // Declare a bean that provides a password encoder - BCryptPasswordEncoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Creates a bean for a function which has a return type of
+    // DaoAuthenticationProvider, now Spring Security automatically
+    // detects it and uses it during authentication.
     @Bean
+    // Creating a function with return type of DaoAuthenticationProvider
     public DaoAuthenticationProvider authenticationProvider() {
+        // DaoAuthenticationProvider is a built-in Spring Security class that handles
+        // authentication. It uses a UserDetailsService (like your
+        // CustomUserDetailsService) to look up user data.
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+        // Tells the DaoAuthenticationProvider which service to use for loading user
+        // details. Passing userDetailsService our custom serive as a param
         authProvider.setUserDetailsService(userDetailsService);
+
+        // Sets the password encoder for the authentication provider.
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
+    // Creating a bean which returns a BCrypt-based password encoder.
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+
+        // Returns the configured authentication provider (which knows how to: Load
+        // users (CustomUserDetailsService) and Check passwords
+        // (BCryptPasswordEncoder)).
         return config.getAuthenticationManager();
     }
 }
