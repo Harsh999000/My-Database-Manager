@@ -78,4 +78,70 @@ public class AuditLoggerService {
         }
     }
     // #endregion - End - Signup Audit Logger
+
+    // #region - Start - Session Audit Logger
+    // #region - Start - Session Audit Logger for Login Events
+    public void logSessionLogin(
+            String username,
+            String tokenHash,
+            String ipAddress,
+            String userAgent,
+            String createdBy) {
+        String sql = "INSERT INTO dbmanager_audit_db.session_audit_log " +
+                "(username, token_hash, status, ip_address, user_agent, login_time, logout_reason, logout_time, created_by) "
+                +
+                "VALUES (?, ?, 'active', ?, ?, NOW(), '-', NULL, ?)";
+
+        try (
+                Connection conn = dataSource.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setString(2, tokenHash);
+            stmt.setString(3, ipAddress);
+            stmt.setString(4, userAgent);
+            stmt.setString(5, createdBy);
+
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace(); // Optional: log this
+        }
+    }
+    // #endregion - End - Session Audit Logger for Login Events
+
+    // #region - Start - Session Audit Logger for Logout Events
+    public int logSessionLogout(
+            String username,
+            String tokenHash,
+            String reason,
+            String ipAddress,
+            String userAgent,
+            String updatedBy) {
+        String sql = "UPDATE dbmanager_audit_db.session_audit_log " +
+                "SET status = 'logged_out', logout_reason = ?, " +
+                "ip_address = ?, user_agent = ?, logout_time = NOW(), " +
+                "created_by = ? " +
+                "WHERE username = ? AND token_hash = ? AND status = 'active'";
+
+        int updatedRows = 0;
+
+        try (
+                Connection conn = dataSource.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, reason);
+            stmt.setString(2, ipAddress);
+            stmt.setString(3, userAgent);
+            stmt.setString(4, updatedBy);
+            stmt.setString(5, username);
+            stmt.setString(6, tokenHash);
+
+            updatedRows = stmt.executeUpdate(); // ✅ store result inside try block
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return updatedRows; // ✅ returned from outside
+    }
+    // #endregion - End - Session Audit Logger for Logout Events
+    // #endregion - End - Session Audit Logger
+
 }

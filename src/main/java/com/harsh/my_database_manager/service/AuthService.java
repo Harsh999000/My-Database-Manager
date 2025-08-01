@@ -3,6 +3,7 @@ package com.harsh.my_database_manager.service;
 import com.harsh.my_database_manager.dto.SignupRequest;
 import com.harsh.my_database_manager.dto.LoginRequest;
 import com.harsh.my_database_manager.util.JwtUtil;
+import com.harsh.my_database_manager.util.TokenUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,9 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
+import java.util.HashMap;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
@@ -70,6 +74,16 @@ public class AuthService {
 
                         // Generate JWT Token
                         String token = jwtUtil.generateToken(username, role);
+
+                        // #region - Start - Session Audit Logging for Login
+                        String tokenHash = TokenUtil.sha256(token);
+                        auditLoggerService.logSessionLogin(
+                                        username,
+                                        tokenHash,
+                                        ip,
+                                        userAgent,
+                                        username);
+                        // #endregion - End - Session Audit Logging for Login
 
                         auditLoggerService.logLoginAttempt(username, "success", "login success",
                                         ip, userAgent, token, 200);
@@ -164,5 +178,47 @@ public class AuthService {
                 }
         }
         // #endregion - End - Signup Auth
+
+        // #region - Start - Logout Method with Session Audit Logging
+        public Map<String, Object> logout(HttpServletRequest request) {
+                Map<String, Object> response = new HashMap<>();
+                try {
+                        String authHeader = request.getHeader("Authorization");
+                        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                                response.put("success", false);
+                                response.put("error", "Missing or invalid Authorization header");
+                                return response;
+                        }
+
+                        String token = authHeader.substring(7);
+                        String username = jwtUtil.getUsernameFromToken(token);
+                        String tokenHash = TokenUtil.sha256(token);
+
+                        String ipAddress = request.getRemoteAddr();
+                        String userAgent = request.getHeader("User-Agent");
+
+                        int result = auditLoggerService.logSessionLogout(
+                                        username,
+                                        tokenHash,
+                                        "manual",
+                                        ipAddress,
+                                        userAgent,
+                                        username);
+
+                        if (result == 0) {
+                                response.put("success", false);
+                                response.put("error", "Session already logged out or not found.");
+                        } else {
+                                response.put("success", true);
+                                response.put("message", "User logged out successfully");
+                        }
+
+                } catch (Exception e) {
+                        response.put("success", false);
+                        response.put("error", "Logout failed: " + e.getMessage());
+                }
+                return response;
+        }
+        // #endregion - End - Logout Method with Session Audit Logging
 
 }
