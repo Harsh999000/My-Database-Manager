@@ -42,6 +42,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
-    // #endregion - End - Logut
+    // #endregion - End - Logout
 
 }

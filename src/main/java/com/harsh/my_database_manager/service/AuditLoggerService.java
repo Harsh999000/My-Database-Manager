@@ -134,12 +134,12 @@ public class AuditLoggerService {
             stmt.setString(5, username);
             stmt.setString(6, tokenHash);
 
-            updatedRows = stmt.executeUpdate(); // ✅ store result inside try block
+            updatedRows = stmt.executeUpdate(); // store result inside try block
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return updatedRows; // ✅ returned from outside
+        return updatedRows;
     }
     // #endregion - End - Session Audit Logger for Logout Events
     // #endregion - End - Session Audit Logger

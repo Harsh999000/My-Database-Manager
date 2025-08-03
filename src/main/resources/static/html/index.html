@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Database Manager</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="/css/index.css" />
+        <link rel="icon" type="image/png" href="/assets/logo.png" />
+    </head>
+
+    <body>
+        <div class="container" id="container">
+            <!-- Signup Form -->
+            <div class="form-container sign-up-container">
+                <form id="signup-form">
+                    <h1>Create Account</h1>
+                    <input type="text" placeholder="Username" name="username" required />
+                    <input type="password" placeholder="Password" name="password" required />
+                    <input type="text" placeholder="Database Name" name="database" required />
+                    <button type="submit">SIGN UP</button>
+                    <div class="footer-links">
+                        <a href="https://github.com/Harsh999000/My-Database-Manager" target="_blank">Docs</a>
+                        <span>Contact: jhaharsh101@gmail.com</span>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Login Form -->
+            <div class="form-container sign-in-container">
+                <form id="login-form">
+                    <h1>Welcome Back!</h1>
+                    <input type="text" placeholder="Username" name="username" required />
+                    <input type="password" placeholder="Password" name="password" required />
+                    <button type="submit">LOGIN</button>
+                    <div class="footer-links">
+                        <a href="https://github.com/Harsh999000/My-Database-Manager" target="_blank">Docs</a>
+                        <span>Contact: jhaharsh101@gmail.com</span>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sliding Panel -->
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Hey!</h1>
+                        <p>Already have an account?</p>
+                        <button class="ghost" id="login">Login</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>New Here?</h1>
+                        <p>Start managing your databases in minutes.</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/script.js"></script>
+        <script src="/js/index.js"></script>
+    </body>
+
+</html>
