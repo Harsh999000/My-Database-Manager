@@ -5,7 +5,15 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #3b82f6, #1e40af);
+    background-color: #FAF9F6;
+}
+
+#loginBtn,
+#signupBtn {
+    margin-top: 15px;
+    /* space from fields above */
+    margin-bottom: 10px;
+    /* space from footer or next element */
 }
 
 .container {
@@ -84,7 +92,7 @@ body {
 }
 
 .overlay {
-    background: linear-gradient(to right, #3b82f6, #1e40af);
+    background-color: #0a9891;
     color: #ffffff;
     position: relative;
     left: -100%;
@@ -122,6 +130,28 @@ body {
 
 .ghost {
     background-color: transparent;
-    border: 2px solid #fff;
-    color: #fff;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    margin-top: 15px;
+}
+
+.footer-links {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.footer-links a,
+.footer-links span {
+    display: block;
+    /* Stack vertically */
+    margin-bottom: 10px;
+    /* Space between them */
+    color: #000;
+    /* Black text (optional, or adjust for contrast) */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
 }
