@@ -53,10 +53,11 @@ This document outlines the finalized physical schema for all core components of 
 
 ### Database: `dbmanager_audit_db`
 
-| Table              | Description                            |
-|--------------------|----------------------------------------|
-| `login_audit_log`  | Records all login attempts (success/failure, reason, IP, token) |
-| `signup_audit_log` | Records all signup attempts (status, reason, IP) |
+| Table               | Description                                                     |
+|---------------------|-----------------------------------------------------------------|
+| `login_audit_log`   | Records all login attempts (success/failure, reason, IP, token) |
+| `signup_audit_log`  | Records all signup attempts (status, reason, IP)                |
+| `session_audit_log` | Tracks login → logout sessions with duration and logout reason  |
 
 ⚠️ **Note**: This database is **never uploaded to GitHub**. Only used for root dashboards and internal audits.
 
