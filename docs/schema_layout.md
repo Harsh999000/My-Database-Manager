@@ -9,16 +9,16 @@ This document outlines the finalized physical schema for all core components of 
 
 ### Database: `dbmanager_user_db`
 
-| Table          | Description                          |
-|----------------|--------------------------------------|
+| Table          | Description                                                                 |
+|----------------|-----------------------------------------------------------------------------|
 | `user_details` | Stores all non-sensitive user metadata (username, role, status, timestamps) |
 
 ---
 
 ### Database: `dbmanager_user_secret_db`
 
-| Table         | Description                        |
-|---------------|------------------------------------|
+| Table         | Description                         |
+|---------------|-------------------------------------|
 | `user_secret` | Stores BCrypt-hashed passwords only |
 
 ---
@@ -27,10 +27,10 @@ This document outlines the finalized physical schema for all core components of 
 
 ### Database: `dbmanager_access_db`
 
-| Table               | Description                                      |
-|---------------------|--------------------------------------------------|
-| `virtual_db_map`    | Maps virtual DBs (owned by user)                 |
-| `virtual_table_map` | Maps virtual tables inside a user's virtual DB   |
+| Table               | Description                                               |
+|---------------------|-----------------------------------------------------------|
+| `virtual_db_map`    | Maps virtual DBs (owned by user)                          |
+| `virtual_table_map` | Maps virtual tables inside a user's virtual DB            |
 | `table_access_map`  | Grants table-level access to other users (executive role) |
 
 ---
@@ -53,11 +53,12 @@ This document outlines the finalized physical schema for all core components of 
 
 ### Database: `dbmanager_audit_db`
 
-| Table               | Description                                                     |
-|---------------------|-----------------------------------------------------------------|
-| `login_audit_log`   | Records all login attempts (success/failure, reason, IP, token) |
-| `signup_audit_log`  | Records all signup attempts (status, reason, IP)                |
-| `session_audit_log` | Tracks login → logout sessions with duration and logout reason  |
+| Table              | Description                                                                        |
+|--------------------|------------------------------------------------------------------------------------|
+| `login_audit_log`  | Records all login attempts (success/failure, reason, IP, token)                    |
+| `signup_audit_log` | Records all signup attempts (status, reason, IP)                                   |
+| `api_audit_log`    | Records all `/api/**` endpoint hits (user, method, IP, user agent, source, status) |
+
 
 ⚠️ **Note**: This database is **never uploaded to GitHub**. Only used for root dashboards and internal audits.
 
